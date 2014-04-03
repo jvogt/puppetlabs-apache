@@ -120,6 +120,7 @@ define apache::vhost(
     $vhost_name                  = '*',
     $logroot                     = $::apache::logroot,
     $log_level                   = undef,
+    $access_logs                 = undef,
     $access_log                  = true,
     $access_log_file             = undef,
     $access_log_pipe             = undef,
@@ -191,6 +192,30 @@ define apache::vhost(
   Allowed values are 'on' and 'off'.")
   validate_bool($ip_based)
   validate_bool($access_log)
+
+  if $access_logs {
+    validate_array($access_logs)
+    validate_hash($access_logs[0])
+  }
+
+  # Deprecated backwards-compatibility
+  if $access_log_file {
+    warning('Apache::Vhost: parameter access_log_file is deprecated in favor of access_logs')
+  }
+  if $access_log_pipe {
+    warning('Apache::Vhost: parameter access_log_pipe is deprecated in favor of access_logs')
+  }
+  if $access_log_syslog {
+    warning('Apache::Vhost parameter access_log_syslog is deprecated in favor of access_logs')
+  }
+  if $access_log_format {
+    warning('Apache::Vhost parameter access_log_format is deprecated in favor of access_logs')
+  }
+  if $access_log_env_var {
+    warning('Apache::Vhost parameter access_log_env_var is deprecated in favor of access_logs')
+  }
+
+
   validate_bool($error_log)
   validate_bool($ssl)
   validate_bool($default_vhost)
@@ -278,6 +303,10 @@ define apache::vhost(
   # Is apache::mod::passenger enabled (or apache::mod['passenger'])
   $passenger_enabled = defined(Apache::Mod['passenger'])
 
+  # If access_logs is defined, then disable access_log functionality
+  if $access_logs {
+    $access_log = false
+  }
   # Define log file names
   if $access_log_file {
     $access_log_destination = "${logroot}/${access_log_file}"
@@ -453,6 +482,7 @@ define apache::vhost(
   # - $_directories
   # - $log_level
   # - $access_log
+  # - $access_logs
   # - $access_log_destination
   # - $_access_log_format
   # - $_access_log_env_var
