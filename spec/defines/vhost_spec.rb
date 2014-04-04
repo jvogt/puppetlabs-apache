@@ -558,19 +558,25 @@ describe 'apache::vhost', :type => :define do
           :match => [/^  php_admin_value open_basedir \/srv\/web\/www.com\/:\/usr\/share\/pear\/$/],
         },
         {
+          :title => 'should accept a php_flags',
+          :attr  => 'php_flags',
+          :value => { 'engine' => 'on' },
+          :match => [/^  php_flag engine on$/],
+        },
+        {
+          :title => 'should accept php_values',
+          :attr  => 'php_values',
+          :value => { 'open_basedir' => '/srv/web/www.com/:/usr/share/pear/' },
+          :match => [/^  php_value open_basedir \/srv\/web\/www.com\/:\/usr\/share\/pear\/$/],
+        },
+        {
           :title => 'should accept php_admin_flags in directories',
           :attr  => 'directories',
           :value => {
-						'path'            => '/srv/www',
-						'php_admin_flags' => { 'php_engine' => 'on' }
-					},
+            'path'            => '/srv/www',
+            'php_admin_flags' => { 'php_engine' => 'on' }
+          },
           :match => [/^    php_admin_flag php_engine on$/],
-        },
-        {
-          :title => 'should accept php_admin_values',
-          :attr  => 'php_admin_values',
-          :value => { 'open_basedir' => '/srv/web/www.com/:/usr/share/pear/' },
-          :match => [/^  php_admin_value open_basedir \/srv\/web\/www.com\/:\/usr\/share\/pear\/$/],
         },
         {
           :title => 'should accept php_admin_values in directories',
@@ -580,6 +586,24 @@ describe 'apache::vhost', :type => :define do
             'php_admin_values' => { 'open_basedir' => '/srv/web/www.com/:/usr/share/pear/' }
           },
           :match => [/^    php_admin_value open_basedir \/srv\/web\/www.com\/:\/usr\/share\/pear\/$/],
+        },
+        {
+          :title => 'should accept php_flags in directories',
+          :attr  => 'directories',
+          :value => {
+            'path'            => '/srv/www',
+            'php_flags' => { 'php_engine' => 'on' }
+          },
+          :match => [/^    php_flag php_engine on$/],
+        },
+        {
+          :title => 'should accept php_values in directories',
+          :attr  => 'directories',
+          :value => {
+            'path'             => '/srv/www',
+            'php_values' => { 'open_basedir' => '/srv/web/www.com/:/usr/share/pear/' }
+          },
+          :match => [/^    php_value open_basedir \/srv\/web\/www.com\/:\/usr\/share\/pear\/$/],
         },
         {
           :title => 'should accept a wsgi script alias',

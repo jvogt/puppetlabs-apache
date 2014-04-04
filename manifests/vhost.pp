@@ -144,6 +144,8 @@ define apache::vhost(
     $suphp_configpath            = $::apache::params::suphp_configpath,
     $php_admin_flags             = [],
     $php_admin_values            = [],
+    $php_flags                   = [],
+    $php_values                  = [],
     $no_proxy_uris               = [],
     $redirect_source             = '/',
     $redirect_dest               = undef,
@@ -498,6 +500,8 @@ define apache::vhost(
   #   - $passenger_enabled
   #   - $php_admin_flags
   #   - $php_admin_values
+  #   - $php_flags
+  #   - $php_values
   #   - $directories (a list of key-value hashes is expected)
   # fastcgi fragment:
   #   - $fastcgi_server
