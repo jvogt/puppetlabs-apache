@@ -174,6 +174,7 @@ define apache::vhost(
     $custom_fragment             = undef,
     $itk                         = undef,
     $action                      = undef,
+    $custom_action               = undef,
     $fastcgi_server              = undef,
     $fastcgi_server_options      = undef,
     $fastcgi_socket              = undef,

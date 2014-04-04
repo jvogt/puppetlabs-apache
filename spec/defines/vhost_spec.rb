@@ -1205,13 +1205,24 @@ describe 'apache::vhost', :type => :define do
         end
       end
 
-      describe 'when action is specified specified' do
+      describe 'when action is specified' do
         let :params do default_params.merge({
           :action => 'php-fastcgi',
         }) end
         it 'should set Action' do
           should contain_file("25-#{title}.conf").with_content(
             /^  Action php-fastcgi \/cgi-bin virtual$/
+          )
+        end
+      end
+
+     describe 'when custom_action is specified' do
+        let :params do default_params.merge({
+          :custom_action => 'php-fastcgi /php-fastcgi',
+        }) end
+        it 'should set Action' do
+          should contain_file("25-#{title}.conf").with_content(
+            /^  Action php-fastcgi \/php-fastcgi$/
           )
         end
       end
