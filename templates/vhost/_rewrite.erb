@@ -3,6 +3,8 @@
   RewriteEngine On
   <%- if @rewrite_base -%>
   RewriteBase <%= @rewrite_base %>
+  <%- if @rewrite_options -%>
+  RewriteOptions <%= @rewrite_options %>
   <%- end -%>
 
   <%- [@rewrites].flatten.compact.each do |rewrite_details| -%>

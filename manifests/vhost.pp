@@ -159,6 +159,7 @@ define apache::vhost(
     $rewrite_base                = undef,
     $rewrite_rule                = undef,
     $rewrite_cond                = undef,
+    $rewrite_options             = undef,
     $setenv                      = [],
     $setenvif                    = [],
     $block                       = [],
@@ -522,6 +523,7 @@ define apache::vhost(
   #   - $request_headers
   # rewrite fragment:
   #   - $rewrites
+  #   - $rewrite_options
   # scriptalias fragment:
   #   - $scriptalias
   #   - $scriptaliases
