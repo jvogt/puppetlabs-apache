@@ -175,6 +175,7 @@ define apache::vhost(
     $itk                         = undef,
     $action                      = undef,
     $fastcgi_server              = undef,
+    $fastcgi_server_options      = undef,
     $fastcgi_socket              = undef,
     $fastcgi_dir                 = undef,
     $additional_includes         = [],
@@ -417,7 +418,7 @@ define apache::vhost(
   }
 
   # Load mod_fastci if needed and not yet loaded
-  if $fastcgi_server and $fastcgi_socket {
+  if $fastcgi_server {
     if ! defined(Class['apache::mod::fastcgi']) {
       include ::apache::mod::fastcgi
     }
@@ -506,6 +507,7 @@ define apache::vhost(
   #   - $directories (a list of key-value hashes is expected)
   # fastcgi fragment:
   #   - $fastcgi_server
+  #   - $fastcgi_server_options
   #   - $fastcgi_socket
   #   - $fastcgi_dir
   # proxy fragment:

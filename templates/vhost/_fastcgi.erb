@@ -1,6 +1,8 @@
-<% if @fastcgi_server -%>
+<% if @fastcgi_server and @fastcgi_socket -%>
 
   FastCgiExternalServer <%= @fastcgi_server %> -socket <%= @fastcgi_socket %>
+<% elsif @fastcgi_server -%>
+  FastCgiServer <%= @fastcgi_server %> <%= @fastcgi_server_options %>
 <% end -%>
 <% if @fastcgi_dir -%>
 
