@@ -3,6 +3,7 @@
   RewriteEngine On
   <%- if @rewrite_base -%>
   RewriteBase <%= @rewrite_base %>
+  <%- end -%>
   <%- if @rewrite_options -%>
   RewriteOptions <%= @rewrite_options %>
   <%- end -%>

@@ -44,18 +44,19 @@
 <%- if @access_logs -%>
   ## Access Logs
   <%- [@access_logs].flatten.compact.each do |access_log_details| -%>
-  # Define log file names
-  <%- if access_log_details['access_log_file'] -%>
-    CustomLog "<%= @logroot %>/<%= access_log_details['access_log_file']%>" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
-  <%- elsif access_log_details['access_log_pipe'] -%>
-    CustomLog "<%= @logroot %>/<%= access_log_details['access_log_pipe']%>" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
-  <%- elsif access_log_details['access_log_syslog'] -%>
-    CustomLog "<%= @logroot %>/<%= access_log_details['access_log_syslog']%>" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
-  <%- else -%>
-    <%- if @ssl -%>
-      CustomLog "<%= @logroot %>/<%= @name %>_access_ssl.log" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
+    # Define log file names
+    <%- if access_log_details['access_log_file'] -%>
+      CustomLog "<%= @logroot %>/<%= access_log_details['access_log_file']%>" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
+    <%- elsif access_log_details['access_log_pipe'] -%>
+      CustomLog "<%= @logroot %>/<%= access_log_details['access_log_pipe']%>" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
+    <%- elsif access_log_details['access_log_syslog'] -%>
+      CustomLog "<%= @logroot %>/<%= access_log_details['access_log_syslog']%>" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
     <%- else -%>
-      CustomLog "<%= @logroot %>/<%= @name %>_access.log" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
+      <%- if @ssl -%>
+        CustomLog "<%= @logroot %>/<%= @name %>_access_ssl.log" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
+      <%- else -%>
+        CustomLog "<%= @logroot %>/<%= @name %>_access.log" <%= access_log_details['access_log_format']%> <%= access_log_details['access_log_env_var']%>
+      <%- end -%>
     <%- end -%>
   <%- end -%>
 <%- end -%>
