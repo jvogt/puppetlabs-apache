@@ -309,9 +309,10 @@ define apache::vhost(
   $passenger_enabled = defined(Apache::Mod['passenger'])
 
   # If access_logs is defined, then disable access_log functionality
-  if $access_logs {
-    $access_log = false
-  }
+  # can't reassign, so we will disable this here and deal with it another way later.
+  #if $access_logs {
+  #  $access_log = false
+  #}
   # Define log file names
   if $access_log_file {
     $access_log_destination = "${logroot}/${access_log_file}"
